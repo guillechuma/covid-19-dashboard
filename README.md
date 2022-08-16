@@ -2,7 +2,7 @@
 
 A python based Streamlit dashboard showing the COVID 19 pandemic data from [Our World in Data](https://covid.ourworldindata.org/)
 
-### How to download and run streamlit dashboard
+## How to download and run streamlit dashboard
 
 1. clone the repository and activate the python virtual environment (covid19dashboard)
 
