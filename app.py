@@ -1,13 +1,14 @@
 # Main streamlit application for the Covid19 analytics dashboard
 
+# Load modules
 import pandas as pd
 import streamlit as st
 import plotly.express as px
 import constants as const
 from fetch_covid_data import fetch_covid_data
 
-# Set page width to wide
-st.set_page_config(layout='wide')
+# Page configuration
+st.set_page_config(page_title="Covid 19 Dashboard",  page_icon="🦠", layout='wide')
 
 # Create sidebar
 st.sidebar.markdown('# COVID 19 Dashboard')
