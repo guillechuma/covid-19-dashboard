@@ -12,7 +12,7 @@ st.set_page_config(layout='wide')
 # Create sidebar
 st.sidebar.markdown('# COVID 19 Dashboard')
 st.sidebar.markdown("### Author: Guillermo Chumaceiro")
-st.sidebar.markdown("This dashboard shows the most important worldwide and countrywise parameters regarding the COVID19 pandemic from 2020 until today using Python and Streamlit.")
+st.sidebar.markdown("This dashboard shows the most important worldwide and countrywise parameters regarding the COVID19 pandemic from January 1st, 2020 until today using Python and Streamlit.")
 st.sidebar.markdown("To get started")
 st.sidebar.markdown("1. Select the date range")
 st.sidebar.markdown("2. Select the countries/continents")
@@ -22,7 +22,8 @@ st.sidebar.markdown("All the data is public and was obtain from [Our World in Da
 st.sidebar.markdown("Data on COVID-19 (coronavirus) by Our World in Data: https://covid.ourworldindata.org/")
 
 # fetch data from the website
-df = fetch_covid_data()
+with st.spinner(text='Fetching data...'):
+    df = fetch_covid_data()
 
 # Convert date column to datetime
 df['date'] = pd.to_datetime(df['date'])
@@ -48,6 +49,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Button to update data
 if st.button('Update Data'): # Trigger something
-    df = fetch_covid_data()
+    with st.spinner(text='Fetching data...'):
+        df = fetch_covid_data()
     # Convert date column to datetime
     df['date'] = pd.to_datetime(df['date'])
