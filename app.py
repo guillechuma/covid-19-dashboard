@@ -29,6 +29,40 @@ with st.spinner(text='Fetching data...'):
 # Convert date column to datetime
 df['date'] = pd.to_datetime(df['date'])
 
+# Header 
+st.markdown("# Covid 19 Dashboard 📈")
+last_update = df[df['location'] == 'World'].iloc[-1, :]['date']
+st.markdown(f'Last update: {last_update.date()}')
+
+world_population = df[df['location'] == 'World'].iloc[-1, :]['population']
+
+st.markdown("### General metrics")
+
+# Separated in three columns
+col1, col2, col3 = st.columns(3)
+
+total_cases = df[df['location'] == 'World'].iloc[-1, :]['total_cases']
+
+with col1:
+    st.write(f'#### Total Cases')
+    st.write(f'#### {int(total_cases):,}')
+    st.write(f'{(total_cases*100/world_population):.2f}% of the population')
+
+total_deaths = df[df['location'] == 'World'].iloc[-1, :]['total_deaths']
+
+with col2:
+    st.write(f'#### Total Deaths')
+    st.write(f'#### {int(total_deaths):,}')
+    st.write(f'{(total_deaths*100/world_population):.2f}% of the population')
+
+total_vaccines = df[df['location'] == 'World'].iloc[-1, :]['total_vaccinations']
+
+with col3:
+    st.write(f'Total Vaccines')
+    st.write(f'#### {int(total_vaccines):,}')
+
+st.markdown("### General trends")
+
 # Select date range to show on plot
 date_range = st.date_input("Select date range to show data",value=[const.min_date, const.max_date], min_value=const.min_date, max_value=const.max_date)
 
@@ -45,7 +79,7 @@ df_plot = df.loc[date_mask]
 df_plot = df_plot[df_plot['location'].isin(countries)]
 
 # Make plotly line chart
-fig = px.line(df_plot, x='date', y=str(y_axis), color='location', title='COVID 19 information line chart', height=800)
+fig = px.line(df_plot, x='date', y=str(y_axis), color='location', title='COVID 19 information line chart')
 st.plotly_chart(fig, use_container_width=True)
 
 # Button to update data
